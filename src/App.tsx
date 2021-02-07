@@ -47,16 +47,23 @@ import './styles.css'
 
 interface RenderNodeProps {
   node: Node
-  // You will need more props...
   items: LegendItems
   level: number
   setDisplayForm: (bool: boolean) => void
+  setSelectedNode: (node: Node) => void
 }
 
-function RenderNode({ node, items, level, setDisplayForm }: RenderNodeProps) {
+function RenderNode({
+  node,
+  items,
+  level,
+  setDisplayForm,
+  setSelectedNode,
+}: RenderNodeProps) {
   const handleAdd = (e: MouseEvent) => {
     // Action for when [+] is clicked on a node
     setDisplayForm(true)
+    setSelectedNode(node)
   }
   const handleDelete = (e: MouseEvent) => {
     // Action for when [x] is clicked on a node
@@ -88,6 +95,7 @@ function RenderNode({ node, items, level, setDisplayForm }: RenderNodeProps) {
                 items={items}
                 level={level + 1}
                 setDisplayForm={setDisplayForm}
+                setSelectedNode={setSelectedNode}
               />
             </div>
           )
@@ -155,7 +163,6 @@ export default function App() {
   const [selectedNode, setSelectedNode] = useState<Node>({
     name: '',
     location: '',
-    subordinates: [],
   })
 
   // function to traverse tree, and extract the locations. Each location is saved an an object key with the value being the next color available in the colors array
@@ -191,7 +198,6 @@ export default function App() {
       ...selectedNode,
       name: '',
       location: '',
-      subordinates: [],
     })
   }
 
@@ -199,15 +205,15 @@ export default function App() {
     <div className="app">
       <RenderNode
         node={root}
-        // You will need more props...
         items={legendItems}
         level={0}
         setDisplayForm={setDisplayForm}
+        setSelectedNode={setSelectedNode}
       />
       <Legend items={legendItems} />
       {displayForm && (
         <NodeForm
-          node={{ name: 'Fix me', location: 'Fix me' }}
+          node={{ name: selectedNode.name, location: selectedNode.location }}
           submitNode={addNode}
           clearNode={clearNode}
         />
