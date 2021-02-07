@@ -48,9 +48,10 @@ import './styles.css'
 interface RenderNodeProps {
   node: Node
   // You will need more props...
+  items: LegendItems
 }
 
-function RenderNode({ node }: RenderNodeProps) {
+function RenderNode({ node, items }: RenderNodeProps) {
   const handleAdd = (e: MouseEvent) => {
     // Action for when [+] is clicked on a node
   }
@@ -71,7 +72,7 @@ function RenderNode({ node }: RenderNodeProps) {
         node.subordinates.map((el, i) => {
           return (
             <div key={el.name + i} className="node-subordinates">
-              <RenderNode node={el} />
+              <RenderNode node={el} items={items} />
             </div>
           )
         })}
@@ -235,6 +236,7 @@ export default function App() {
       <RenderNode
         node={root}
         // You will need more props...
+        items={legendItems}
       />
       <Legend items={legendItems} />
       <NodeForm
