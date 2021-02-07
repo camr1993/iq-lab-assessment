@@ -49,9 +49,10 @@ interface RenderNodeProps {
   node: Node
   // You will need more props...
   items: LegendItems
+  level: number
 }
 
-function RenderNode({ node, items }: RenderNodeProps) {
+function RenderNode({ node, items, level }: RenderNodeProps) {
   const handleAdd = (e: MouseEvent) => {
     // Action for when [+] is clicked on a node
   }
@@ -70,12 +71,17 @@ function RenderNode({ node, items }: RenderNodeProps) {
         <button className="node-action" onClick={handleAdd}>
           +
         </button>
+        {level !== 0 && (
+          <button className="node-action" onClick={handleDelete}>
+            x
+          </button>
+        )}
       </div>
       {node.subordinates !== undefined &&
         node.subordinates.map((el, i) => {
           return (
             <div key={el.name + i} className="node-subordinates">
-              <RenderNode node={el} items={items} />
+              <RenderNode node={el} items={items} level={level + 1} />
             </div>
           )
         })}
@@ -175,6 +181,7 @@ export default function App() {
         node={root}
         // You will need more props...
         items={legendItems}
+        level={0}
       />
       <Legend items={legendItems} />
       <NodeForm
