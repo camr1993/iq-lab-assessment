@@ -62,7 +62,10 @@ function RenderNode({ node, items }: RenderNodeProps) {
     // Placeholder example tree nodes
     // Rewrite this to dynamically render the tree using the data
     <div className="node">
-      <div className="node-name" style={{ backgroundColor: colors[0] }}>
+      <div
+        className="node-name"
+        style={{ backgroundColor: items[node.location] }}
+      >
         {node.name}
         <button className="node-action" onClick={handleAdd}>
           +
