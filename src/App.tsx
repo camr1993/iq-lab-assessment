@@ -48,6 +48,7 @@ import './styles.css'
 
 interface RenderNodeProps {
   node: Node
+  previousNode: Node | null
   items: LegendItems
   level: number
   setDisplayForm: (bool: boolean) => void
@@ -59,6 +60,7 @@ function RenderNode({
   node,
   items,
   level,
+  previousNode,
   setDisplayForm,
   setSelectedNode,
   clearNode,
@@ -70,6 +72,16 @@ function RenderNode({
   }
   const handleDelete = (e: MouseEvent) => {
     // Action for when [x] is clicked on a node
+    if (previousNode && previousNode.subordinates) {
+      for (let i = 0; i < previousNode.subordinates.length; i++) {
+        if (previousNode.subordinates[i] === node) {
+          previousNode.subordinates = [
+            ...previousNode.subordinates.slice(0, i),
+            ...previousNode.subordinates.slice(i + 1),
+          ]
+        }
+      }
+    }
     clearNode()
   }
   return (
@@ -101,6 +113,7 @@ function RenderNode({
                 setDisplayForm={setDisplayForm}
                 setSelectedNode={setSelectedNode}
                 clearNode={clearNode}
+                previousNode={node}
               />
             </div>
           )
@@ -215,6 +228,7 @@ export default function App() {
         setDisplayForm={setDisplayForm}
         setSelectedNode={setSelectedNode}
         clearNode={clearNode}
+        previousNode={null}
       />
       <Legend items={legendItems} />
       {displayForm && (
