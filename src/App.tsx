@@ -76,68 +76,6 @@ function RenderNode({ node, items }: RenderNodeProps) {
             </div>
           )
         })}
-      {/* <div className="node-subordinates">
-        <div className="node">
-          <div className="node-name" style={{ backgroundColor: colors[1] }}>
-            CTO
-            <button className="node-action" onClick={handleAdd}>
-              +
-            </button>
-            <button className="node-action" onClick={handleDelete}>
-              x
-            </button>
-          </div>
-          <div className="node-subordinates">
-            <div className="node-name" style={{ backgroundColor: colors[2] }}>
-              Sr. VP
-              <button className="node-action" onClick={handleAdd}>
-                +
-              </button>
-              <button className="node-action" onClick={handleDelete}>
-                x
-              </button>
-            </div>
-            <div className="node-name" style={{ backgroundColor: colors[3] }}>
-              Sr. VP
-              <button className="node-action" onClick={handleAdd}>
-                +
-              </button>
-              <button className="node-action" onClick={handleDelete}>
-                x
-              </button>
-            </div>
-          </div>
-          <div className="node-name" style={{ backgroundColor: '#EA5A21' }}>
-            CFO
-            <button className="node-action" onClick={handleAdd}>
-              +
-            </button>
-            <button className="node-action" onClick={handleDelete}>
-              x
-            </button>
-          </div>
-          <div className="node-subordinates">
-            <div className="node-name" style={{ backgroundColor: '#3BB36C' }}>
-              Sr. VP
-              <button className="node-action" onClick={handleAdd}>
-                +
-              </button>
-              <button className="node-action" onClick={handleDelete}>
-                x
-              </button>
-            </div>
-            <div className="node-name" style={{ backgroundColor: '#77B7BC' }}>
-              Sr. VP
-              <button className="node-action" onClick={handleAdd}>
-                +
-              </button>
-              <button className="node-action" onClick={handleDelete}>
-                x
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </div>
   )
 }
@@ -151,7 +89,6 @@ interface LegendProps {
 }
 
 function Legend({ items }: LegendProps) {
-  console.log(Object.keys(items).length)
   return (
     <div className="legend">
       <div className="legend-head">Location</div>
@@ -228,8 +165,6 @@ export default function App() {
   const clearNode = () => {
     // ...
   }
-
-  console.log('HERE', legendItems)
 
   return (
     <div className="app">
