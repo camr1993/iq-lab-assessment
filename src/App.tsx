@@ -50,11 +50,13 @@ interface RenderNodeProps {
   // You will need more props...
   items: LegendItems
   level: number
+  setDisplayForm: (bool: boolean) => void
 }
 
-function RenderNode({ node, items, level }: RenderNodeProps) {
+function RenderNode({ node, items, level, setDisplayForm }: RenderNodeProps) {
   const handleAdd = (e: MouseEvent) => {
     // Action for when [+] is clicked on a node
+    setDisplayForm(true)
   }
   const handleDelete = (e: MouseEvent) => {
     // Action for when [x] is clicked on a node
@@ -81,7 +83,12 @@ function RenderNode({ node, items, level }: RenderNodeProps) {
         node.subordinates.map((el, i) => {
           return (
             <div key={el.name + i} className="node-subordinates">
-              <RenderNode node={el} items={items} level={level + 1} />
+              <RenderNode
+                node={el}
+                items={items}
+                level={level + 1}
+                setDisplayForm={setDisplayForm}
+              />
             </div>
           )
         })}
@@ -144,6 +151,12 @@ function NodeForm({ node, submitNode, clearNode }: NodeFormProps) {
 export default function App() {
   const [root] = useState(() => tree())
   const [legendItems, setLegendItems] = useState<LegendItems>({})
+  const [displayForm, setDisplayForm] = useState<boolean>(false)
+  const [selectedNode, setSelectedNode] = useState<Node>({
+    name: '',
+    location: '',
+    subordinates: [],
+  })
 
   // function to traverse tree, and extract the locations. Each location is saved an an object key with the value being the next color available in the colors array
   const populateLegend = (node: Node, items: LegendItems): LegendItems => {
@@ -172,7 +185,14 @@ export default function App() {
   }
 
   const clearNode = () => {
-    // ...
+    // This function toggles the form off and clears the selected node
+    setDisplayForm(false)
+    setSelectedNode({
+      ...selectedNode,
+      name: '',
+      location: '',
+      subordinates: [],
+    })
   }
 
   return (
@@ -182,13 +202,16 @@ export default function App() {
         // You will need more props...
         items={legendItems}
         level={0}
+        setDisplayForm={setDisplayForm}
       />
       <Legend items={legendItems} />
-      <NodeForm
-        node={{ name: 'Fix me', location: 'Fix me' }}
-        submitNode={addNode}
-        clearNode={clearNode}
-      />
+      {displayForm && (
+        <NodeForm
+          node={{ name: 'Fix me', location: 'Fix me' }}
+          submitNode={addNode}
+          clearNode={clearNode}
+        />
+      )}
     </div>
   )
 }
