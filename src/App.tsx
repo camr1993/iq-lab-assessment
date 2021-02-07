@@ -67,7 +67,15 @@ function RenderNode({ node }: RenderNodeProps) {
           +
         </button>
       </div>
-      <div className="node-subordinates">
+      {node.subordinates !== undefined &&
+        node.subordinates.map((el) => {
+          return (
+            <div className="node-subordinates">
+              <RenderNode node={el} />
+            </div>
+          )
+        })}
+      {/* <div className="node-subordinates">
         <div className="node">
           <div className="node-name" style={{ backgroundColor: colors[1] }}>
             CTO
@@ -128,7 +136,7 @@ function RenderNode({ node }: RenderNodeProps) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
