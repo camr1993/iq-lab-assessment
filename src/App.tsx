@@ -159,9 +159,6 @@ function Legend({ items }: LegendProps) {
           {location}
         </div>
       ))}
-      {Object.keys(items).map((el) => {
-        console.log('hi')
-      })}
     </div>
   )
 }
@@ -199,28 +196,28 @@ function NodeForm({ node, submitNode, clearNode }: NodeFormProps) {
 
 export default function App() {
   const [root] = useState(() => tree())
-  // const [legendItems] = useState<LegendItems>({})
+  const [legendItems, setLegendItems] = useState<LegendItems>({})
 
-  // Rewrite this to populate the legend from the tree data
-  const legendItems: LegendItems = {
-    //   'Example 1': colors[0],
-    //   'Example 2': colors[1],
-    //   'Example 3': colors[2],
-  }
-
-  const populateLegend = (node: Node): void => {
-    if (!(node.location in legendItems)) {
-      legendItems[node.location] = colors[Object.keys(legendItems).length]
+  // function to traverse tree, and extract the locations. Each location is saved an an object key with the value being the next color available in the colors array
+  const populateLegend = (node: Node, items: LegendItems): LegendItems => {
+    if (!(node.location in items)) {
+      items[node.location] = colors[Object.keys(items).length]
     }
     if (node.subordinates !== undefined) {
       for (let i = 0; i < node.subordinates.length; i++) {
-        populateLegend(node.subordinates[i])
+        populateLegend(node.subordinates[i], items)
       }
     }
+    return items
   }
 
+  // useEffect calls the populate legend function, and sets the state of legendItems. This triggers a re-render for the Legend component
   useEffect(() => {
-    populateLegend(root)
+    let items = populateLegend(root, {})
+    setLegendItems({
+      ...legendItems,
+      ...items,
+    })
   }, [root])
 
   const addNode = () => {
