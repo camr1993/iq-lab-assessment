@@ -72,6 +72,7 @@ function RenderNode({
   }
   const handleDelete = (e: MouseEvent) => {
     // Action for when [x] is clicked on a node
+    // search through previous node, and remove the current node from the subordinates array
     if (previousNode && previousNode.subordinates) {
       for (let i = 0; i < previousNode.subordinates.length; i++) {
         if (previousNode.subordinates[i] === node) {
@@ -85,8 +86,6 @@ function RenderNode({
     clearNode()
   }
   return (
-    // Placeholder example tree nodes
-    // Rewrite this to dynamically render the tree using the data
     <div className="node">
       <div
         className="node-name"
