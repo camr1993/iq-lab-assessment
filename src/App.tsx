@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState, MouseEvent } from 'react'
+import { FormEvent, useRef, useState, MouseEvent, useEffect } from 'react'
 import { colors, tree, Node } from './data'
 import './styles.css'
 
@@ -68,9 +68,9 @@ function RenderNode({ node }: RenderNodeProps) {
         </button>
       </div>
       {node.subordinates !== undefined &&
-        node.subordinates.map((el) => {
+        node.subordinates.map((el, i) => {
           return (
-            <div className="node-subordinates">
+            <div key={el.name + i} className="node-subordinates">
               <RenderNode node={el} />
             </div>
           )
@@ -150,6 +150,7 @@ interface LegendProps {
 }
 
 function Legend({ items }: LegendProps) {
+  console.log(Object.keys(items).length)
   return (
     <div className="legend">
       <div className="legend-head">Location</div>
@@ -158,6 +159,9 @@ function Legend({ items }: LegendProps) {
           {location}
         </div>
       ))}
+      {Object.keys(items).map((el) => {
+        console.log('hi')
+      })}
     </div>
   )
 }
@@ -195,13 +199,29 @@ function NodeForm({ node, submitNode, clearNode }: NodeFormProps) {
 
 export default function App() {
   const [root] = useState(() => tree())
+  // const [legendItems] = useState<LegendItems>({})
 
   // Rewrite this to populate the legend from the tree data
   const legendItems: LegendItems = {
-    'Example 1': colors[0],
-    'Example 2': colors[1],
-    'Example 3': colors[2],
+    //   'Example 1': colors[0],
+    //   'Example 2': colors[1],
+    //   'Example 3': colors[2],
   }
+
+  const populateLegend = (node: Node): void => {
+    if (!(node.location in legendItems)) {
+      legendItems[node.location] = colors[Object.keys(legendItems).length]
+    }
+    if (node.subordinates !== undefined) {
+      for (let i = 0; i < node.subordinates.length; i++) {
+        populateLegend(node.subordinates[i])
+      }
+    }
+  }
+
+  useEffect(() => {
+    populateLegend(root)
+  }, [root])
 
   const addNode = () => {
     // ...
@@ -210,6 +230,8 @@ export default function App() {
   const clearNode = () => {
     // ...
   }
+
+  console.log('HERE', legendItems)
 
   return (
     <div className="app">
