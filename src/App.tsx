@@ -1,3 +1,4 @@
+import { clear } from 'console'
 import { FormEvent, useRef, useState, MouseEvent, useEffect } from 'react'
 import { colors, tree, Node } from './data'
 import './styles.css'
@@ -51,6 +52,7 @@ interface RenderNodeProps {
   level: number
   setDisplayForm: (bool: boolean) => void
   setSelectedNode: (node: Node) => void
+  clearNode: () => void
 }
 
 function RenderNode({
@@ -59,6 +61,7 @@ function RenderNode({
   level,
   setDisplayForm,
   setSelectedNode,
+  clearNode,
 }: RenderNodeProps) {
   const handleAdd = (e: MouseEvent) => {
     // Action for when [+] is clicked on a node
@@ -67,6 +70,7 @@ function RenderNode({
   }
   const handleDelete = (e: MouseEvent) => {
     // Action for when [x] is clicked on a node
+    clearNode()
   }
   return (
     // Placeholder example tree nodes
@@ -96,6 +100,7 @@ function RenderNode({
                 level={level + 1}
                 setDisplayForm={setDisplayForm}
                 setSelectedNode={setSelectedNode}
+                clearNode={clearNode}
               />
             </div>
           )
@@ -209,6 +214,7 @@ export default function App() {
         level={0}
         setDisplayForm={setDisplayForm}
         setSelectedNode={setSelectedNode}
+        clearNode={clearNode}
       />
       <Legend items={legendItems} />
       {displayForm && (
