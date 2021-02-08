@@ -92,9 +92,6 @@ function RenderNode({
         style={{ backgroundColor: items[node.location] }}
       >
         {node.name}
-        {/* <button className="node-action" onClick={handleAdd}>
-          +
-        </button> */}
         <div className="button-div">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -108,9 +105,6 @@ function RenderNode({
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
           </svg>
           {level !== 0 && (
-            // <button className="node-action" onClick={handleDelete}>
-            //   x
-            // </button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
