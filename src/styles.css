@@ -12,6 +12,24 @@
   line-height: 30px;
   background: #ccc;
   text-indent: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 5px;
+}
+
+.button-div {
+  display: flex;
+  align-items: center;
+}
+
+.bi-plus-circle-fill {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.bi-dash-circle-fill {
+  cursor: pointer;
 }
 
 .node-subordinates {
