@@ -211,6 +211,13 @@ export default function App() {
     } else {
       parent.subordinates = [newNode]
     }
+    // also need to check if theres a new location
+    if (!(newNode.location in legendItems)) {
+      setLegendItems({
+        ...legendItems,
+        [newNode.location]: colors[Object.keys(legendItems).length],
+      })
+    }
   }
 
   const clearNode = () => {
