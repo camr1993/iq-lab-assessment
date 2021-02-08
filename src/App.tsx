@@ -204,8 +204,13 @@ export default function App() {
     })
   }, [root])
 
-  const addNode = () => {
-    // ...
+  const addNode = (parent: Node, newNode: Node) => {
+    // add newNode to subordinates array of parent
+    if (parent.subordinates !== undefined) {
+      parent.subordinates.push(newNode)
+    } else {
+      parent.subordinates = [newNode]
+    }
   }
 
   const clearNode = () => {
@@ -232,7 +237,7 @@ export default function App() {
       <Legend items={legendItems} />
       {displayForm && (
         <NodeForm
-          node={{ name: selectedNode.name, location: selectedNode.location }}
+          node={selectedNode}
           submitNode={addNode}
           clearNode={clearNode}
         />
