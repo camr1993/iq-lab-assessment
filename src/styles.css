@@ -70,4 +70,40 @@ form {
   overflow: hidden;
   border: 1px solid #ccc;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+
+form div,
+input {
+  margin-top: 10px;
+}
+
+form input[type='text'] {
+  height: 30px;
+  padding: 2px 5px;
+  font-size: 18px;
+}
+
+form input[type='button'],
+input[type='submit'] {
+  color: #f5f4f4;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #667eea;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: none;
+  border: none;
+}
+
+form input[type='button']:hover,
+input[type='submit']:hover {
+  background-color: #849aff;
+}
+
+.form-name {
+  font-weight: 600;
 }

@@ -188,7 +188,9 @@ function NodeForm({ node, submitNode, clearNode }: NodeFormProps) {
   }
   return (
     <form autoComplete="off" ref={formRef} onSubmit={onSubmit}>
-      <div>Adding child node to: {node.name}</div>
+      <div>
+        Adding child node to: <span className="form-name">{node.name}</span>
+      </div>
       <input type="text" name="name" placeholder="Name" required />
       <input type="text" name="location" placeholder="Location" required />
       <input type="submit" value="Submit" />
